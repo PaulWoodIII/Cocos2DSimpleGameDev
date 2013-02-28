@@ -12,6 +12,10 @@
         loadExtension:true,
         tag:'gameCanvas', 
  
+        // RELEASE
+        SingleEngineFile:'Cocos2DSimpleGame-v0.1.js',
+ 
+				/*
         // 2
         engineDir:'./Platform/HTML5/cocos2d/',
 				appFiles:[
@@ -20,6 +24,8 @@
 				    './Src/GameOver.js',
 				    './Src/main.js'
 				]
+				*/
+				
     };
  
     // 3

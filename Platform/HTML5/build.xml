@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<project name="Javascript compress project" basedir="." default="compile">
+ 
+    <taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask"
+             classpath="${basedir}/compiler.jar"/>
+ 
+    <target name="compile">
+        <jscomp compilationLevel="simple" warning="quiet"
+                debug="false" output="${basedir}/../../Cocos2DSimpleGame-v0.1.js">
+            <sources dir="${basedir}">
+                <file name="Cocos2d-html5-v2.1.1.min.js" />
+            </sources>
+            <sources dir="${basedir}/../../Src">
+                <file name="GameOver.js" />
+                <file name="MainLayer.js" />
+                <file name="resource.js" />
+                <file name="main.js" />
+            </sources>
+        </jscomp>
+     </target>
+ </project>
