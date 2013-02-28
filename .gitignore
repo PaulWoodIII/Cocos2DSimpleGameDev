@@ -18,5 +18,5 @@ DerivedData
 
 *Breakpoints.xcbkptlist
 *UserInterfaceState.xcuserstate
-xcuserdata
+xcuserdata/*
 *.xcworkspace
