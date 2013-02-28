@@ -1,0 +1,46 @@
+version 0.6 - XX-Mar-2013
+- [FIX] JSB: RGBAProtocol: color/opacity -> getColor/getOpacity
+
+version 0.5 - 29-Jan-2013
+- [FIX] JSB: Errors inside require() are reported correctly
+		Improved errors in Chipmunk and cocos2d manual functions
+		Removed JSB_PRECONDITION3(). Merged in JSB_PRECONDITION2()
+		ParticleBatchNode is bound with the official API, like SpriteBatchNode
+		cc.DrawNode.drawPoly works.
+        jsval_to_NSObject returns NSNull if jsval is null
+
+version 0.4 - 4-Dec-2012
+- [FIX] JSB Chipmunk: Added missing properties
+		The collision callback handlers are rooted/unrooted. Prevents posible crash
+		body.setUserData()/getUserData() were removed. Instead use body.userData
+- [FIX] JSB CocosBuilder: Uses new API
+- [FIX] JSBCore: Added conversion for NSNull to JS
+
+version 0.3 - 7-Nov-2012
+- [NEW] Chipmunk bindings: Added Object Oriented JS API
+	- JSB Chipmunk API is compatible with Chipmunk-JS API
+	- Added missing functions to bindings:
+		- cpAreaForPoly, cpCentroidForPoly, cpMomentForPoly, cpPolysShapeNew
+- [NEW] JSBCore: registration code for chipmunk/cocos2d moved to its own files
+		Better macros to report errors: JSB_PRECONDITION2() & JSB_PRECONDITION2()
+		Possibility to generate files compatible with cpp
+		Added support for NSDictionary to jsval
+		Converts recusive data-structures to jsval
+- [NEW] Script: jsb generates Object Oriented JS code for C-like API
+- [NEW] SpiderMonkey: Supports SpiderMonkey v16.0 API
+- [FIX] Callbacks: (Native-to-JS) if callback returns value, it is returned to native, as long it is a BOOL.
+- [FIX] Callbacks: (JS-Native-JS): 'this' is an optional parameter, and comes after the callback function
+- [FIX] Conversions: longlong and 64-bit long are represented by strings (and not an array of two elements)
+- [FIX] Xcode: Fixed all compiler warnings
+
+version 0.2 - XX-Sept-2012
+- [FIX] config file: only include cocos2d ios on iOS and cocos2d osx on OS X
+
+version 0.1 - 21-Ago-2012
+ - [NEW] Initial public release
+ - [NEW] bindings:
+ 	- Added bindings for cocos2d-iphone v2.1
+ 	- Added bindings for Chipmunk v6.1.1
+ 	- Added bindings for CocosBuilder Reader
+ 	- Added bindings for CocosDenshion
+
