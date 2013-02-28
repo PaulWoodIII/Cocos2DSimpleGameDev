@@ -1,3 +1,7 @@
+
+// Get the Global AudioEngine Instance
+var audioEngine = cc.AudioEngine.getInstance();
+
 // 1 This creates a new class called MainLayer that extends from Cocos2D’s LayerColor class. Note that in Cocos2D Javascript bindings, all Cocos2D classes have the cc prefix.
 var MainLayer = cc.LayerColor.extend({
 	
@@ -37,11 +41,13 @@ var MainLayer = cc.LayerColor.extend({
         // 7 Finally, adds the player sprite to the layer.
         this.addChild(player);
 				
-				
+				// Spawn Monsters every 3 seconds
 				this.schedule(this.gameLogic, 3);
 				
 				// schedule update to run as often as possible
 				this.scheduleUpdate();
+				
+				audioEngine.playMusic(s_bgMusic, true);
     },
 		addMonster:function() {
  
@@ -120,6 +126,9 @@ var MainLayer = cc.LayerColor.extend({
         // Add to array
         projectile.setTag(2);
         this._projectiles.push(projectile);
+				
+				//Play Pew Sound
+				audioEngine.playEffect(s_shootEffect);
     },
 
  
