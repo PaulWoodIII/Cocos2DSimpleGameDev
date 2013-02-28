@@ -7,7 +7,9 @@ var MainLayer = cc.LayerColor.extend({
     // 2 Creates a constructor for the class, that calls the superclass’s constructor.
     ctor:function() {
         this._super();
- 
+ 			 
+
+			 
         // 3 In Cocos2D Javascript bindings, whenever you derive from a Cocos2D class you have to call this method to associate it with the appropriate native class.
         cc.associateWithNative( this, cc.LayerColor );
     },
@@ -15,6 +17,16 @@ var MainLayer = cc.LayerColor.extend({
     // 4 When a node is added for the first time to a scene, Cocos2D calls onEnter on it. So this is a good place to put initialization code for a layer.
     onEnter:function () {
         this._super();
+ 
+ 
+				// Then you have to enable touches on your layer – but how to handle that depends if your game is being run on a mobile, desktop, or browser device. So add the following code to the beginning of onEnter, right after the call to this._super():
+				
+				if( 'touches' in sys.capabilities ) {
+				    this.setTouchEnabled(true);
+				}
+				if( 'mouse' in sys.capabilities ) {
+				    this.setMouseEnabled(true);
+				}
  
         // 5 This line creates a sprite and puts it in a variable named player. Note for the name of the sprite you pass in the constant s_player that you created earlier.
         var player = cc.Sprite.create(s_player);
@@ -65,6 +77,60 @@ var MainLayer = cc.LayerColor.extend({
 		// let’s make sure your addMonster function is called periodically.
 		gameLogic:function(dt) {
 		    this.addMonster();
+		},
+		
+    locationTapped:function(location) {
+        // Set up initial location of the projectile
+        var projectile = cc.Sprite.create(s_projectile);
+        projectile.setPosition(20, winSize.height/2);
+
+        // Determine offset of location to projectile
+        var offset = cc.pSub(location, projectile.getPosition());
+
+        // Bail out if you are shooting down or backwards
+        if (offset.x <= 0) return;
+
+        // Ok to add now - we've double checked position
+        this.addChild(projectile);
+
+        // Figure out final destination of projectile
+        var realX = winSize.width + (projectile.getContentSize().width / 2);
+        var ratio = offset.y / offset.x;
+        var realY = (realX * ratio) + projectile.getPosition().y;
+        var realDest = cc.p(realX, realY);
+
+        // Determine the length of how far you're shooting
+        var offset = cc.pSub(realDest, projectile.getPosition());
+        var length = cc.pLength(offset);
+        var velocity = 480.0;
+        var realMoveDuration = length / velocity;
+
+        // Move projectile to actual endpoint
+        projectile.runAction(cc.Sequence.create(
+            cc.MoveTo.create(realMoveDuration, realDest),
+            cc.CallFunc.create(function(node) {
+                cc.ArrayRemoveObject(this._projectiles, node);
+                node.removeFromParent();
+            }, this)
+        ));
+
+        // Add to array
+        projectile.setTag(2);
+        this._projectiles.push(projectile);
+    },
+
+ 
+		onMouseUp:function (event) {
+		    var location = event.getLocation();
+		    this.locationTapped(location);
+		},
+ 
+		onTouchesEnded:function (touches, event) {
+		    if (touches.length <= 0)
+		        return;
+		    var touch = touches[0];
+		    var location = touch.getLocation();
+		    this.locationTapped(location);
 		}
  
  	 
