@@ -39,6 +39,9 @@ var MainLayer = cc.LayerColor.extend({
 				
 				
 				this.schedule(this.gameLogic, 3);
+				
+				// schedule update to run as often as possible
+				this.scheduleUpdate();
     },
 		addMonster:function() {
  
@@ -131,6 +134,24 @@ var MainLayer = cc.LayerColor.extend({
 		    var touch = touches[0];
 		    var location = touch.getLocation();
 		    this.locationTapped(location);
+		},
+		
+		update:function (dt) {
+		    for (var i = 0; i < this._projectiles.length; i++) {
+		        var projectile = this._projectiles[i];
+		        for (var j = 0; j < this._monsters.length; j++) {
+		            var monster = this._monsters[j];
+		            var projectileRect = projectile.getBoundingBox();
+		            var monsterRect = monster.getBoundingBox();
+		            if (cc.rectIntersectsRect(projectileRect, monsterRect)) {
+		                cc.log("collision!");
+		                cc.ArrayRemoveObject(this._projectiles, projectile);
+		                projectile.removeFromParent();
+		                cc.ArrayRemoveObject(this._monsters, monster);
+		                monster.removeFromParent();                
+		            }
+		        }
+		    }
 		}
  
  	 
