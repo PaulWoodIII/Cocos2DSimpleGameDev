@@ -15,3 +15,8 @@ profile
 DerivedData
 .idea/
 *.hmap
+
+*Breakpoints.xcbkptlist
+*UserInterfaceState.xcuserstate
+xcuserdata
+*.xcworkspace
