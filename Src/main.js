@@ -18,7 +18,7 @@ var cocos2dApp = cc.Application.extend({
         var director = cc.Director.getInstance();
         director.setDisplayStats(this.config['showFPS']);
         director.setAnimationInterval(1.0 / this.config['frameRate']);
-        // 1
+        // 1 Initializes those global helper variables I mentioned earlier.
         director = cc.Director.getInstance();
         winSize = director.getWinSize();
         centerPos = cc.p( winSize.width/2, winSize.height/2 );
@@ -27,7 +27,7 @@ var cocos2dApp = cc.Application.extend({
     }
 });
  
-// 2
+// 2 Declares the global variables, and specifies the scene to run (MainLayer.scene – that helper method you wrote earlier to create a scene with the MainLayer in it).
 var director;
 var winSize;
 var centerPos;
