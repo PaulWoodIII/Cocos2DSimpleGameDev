@@ -8,6 +8,9 @@ var MainLayer = cc.LayerColor.extend({
 		_monsters:[],
 		_projectiles:[],
 		
+		// Add this new instance variable to the top of the file
+		_monstersDestroyed:0,
+		
     // 2 Creates a constructor for the class, that calls the superclass’s constructor.
     ctor:function() {
         this._super();
@@ -75,6 +78,9 @@ var MainLayer = cc.LayerColor.extend({
 		    var actionMoveDone = cc.CallFunc.create(function(node) { // 4
 		        cc.ArrayRemoveObject(this._monsters, node); // 5
 		        node.removeFromParent();
+						// Lose the Game
+						var scene = GameOver.scene(false);
+						cc.Director.getInstance().replaceScene(scene);
 		    }, this); 
 		    monster.runAction(cc.Sequence.create(actionMove, actionMoveDone));
  
@@ -157,7 +163,13 @@ var MainLayer = cc.LayerColor.extend({
 		                cc.ArrayRemoveObject(this._projectiles, projectile);
 		                projectile.removeFromParent();
 		                cc.ArrayRemoveObject(this._monsters, monster);
-		                monster.removeFromParent();                
+		                monster.removeFromParent();   
+										this._monstersDestroyed++;
+										// Win the Game
+										if (this._monstersDestroyed >= 2) {
+										    var scene = GameOver.scene(true);
+										    cc.Director.getInstance().replaceScene(scene);
+										}             
 		            }
 		        }
 		    }

@@ -14,11 +14,12 @@
  
         // 2
         engineDir:'./Platform/HTML5/cocos2d/',
-        appFiles:[
-            './Src/resource.js',
-            './Src/MainLayer.js',
-            './Src/main.js'
-        ]
+				appFiles:[
+				    './Src/resource.js',
+				    './Src/MainLayer.js',
+				    './Src/GameOver.js',
+				    './Src/main.js'
+				]
     };
  
     // 3
